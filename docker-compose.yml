@@ -22,7 +22,7 @@ services:
       context: ./chirpstack-application-server
       dockerfile: Dockerfile-devel
     volumes:
-      - ./:/chirpstack-application-server
+      - balena-data:/chirpstack-application-server
       # - ../chirpstack-api:/chirpstack-api
     links:
       - postgres
