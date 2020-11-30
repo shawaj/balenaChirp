@@ -43,7 +43,7 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - docker-compose/postgresql/initdb:/docker-entrypoint-initdb.d
+      - initdb:/docker-entrypoint-initdb.d
 
   redis:
     image: redis:4-alpine
@@ -109,4 +109,4 @@ services:
 
 volumes:
     balena-data:
-    docker-compose/postgresql/initdb:
+    initdb:
