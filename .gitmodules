@@ -1,0 +1,9 @@
+[submodule "chirpstack-gateway-bridge"]
+	path = chirpstack-gateway-bridge
+	url = https://github.com/brocaar/chirpstack-gateway-bridge
+[submodule "chirpstack-network-server"]
+	path = chirpstack-network-server
+	url = https://github.com/brocaar/chirpstack-network-server
+[submodule "chirpstack-application-server"]
+	path = chirpstack-application-server
+	url = https://github.com/brocaar/chirpstack-application-server
