@@ -2,7 +2,7 @@ version: "2"
 services:
   chirpstack-gateway-bridge:
     build:
-      context: .
+      context: ./chirpstack-gateway-bridge
       dockerfile: Dockerfile-devel
     ports:
       - "1700:1700/udp"
@@ -17,13 +17,9 @@ services:
   mosquitto:
     image: eclipse-mosquitto
 
----
-
-version: "2"
-services:
   chirpstack-application-server:
     build: 
-      context: .
+      context: ./chirpstack-application-server
       dockerfile: Dockerfile-devel
     volumes:
       - ./:/chirpstack-application-server
@@ -31,7 +27,7 @@ services:
     links:
       - postgres
       - redis
-      - mosquitto
+      - mosquitto1
       - rabbitmq
       - zookeeper
       - kafka
@@ -52,7 +48,7 @@ services:
   redis:
     image: redis:4-alpine
 
-  mosquitto:
+  mosquitto1:
     image: eclipse-mosquitto
 
   rabbitmq:
@@ -70,23 +66,18 @@ services:
     depends_on:
       - zookeeper
 
-
-----
-
-version: "2"
-services:
   chirpstack-network-server:
     build:
-      context: .
+      context: ./chirpstack-network-server
       dockerfile: Dockerfile-devel
     command: make serve
     volumes:
       - ./:/chirpstack-network-server
     links:
-      - postgres
-      - redis
-      - mosquitto
-      - rabbitmq
+      - postgres1
+      - redis1
+      - mosquitto2
+      - rabbitmq1
     environment:
       - DB_AUTOMIGRATE=true
       - NET_ID=010203
@@ -100,18 +91,18 @@ services:
       - TEST_MQTT_SERVER=tcp://mosquitto:1883
       - TEST_RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
 
-  postgres:
+  postgres1:
     image: postgres:9.5
     environment:
       - POSTGRES_PASSWORD=chirpstack_ns
       - POSTGRES_USER=chirpstack_ns
       - POSTGRES_DB=chirpstack_ns
 
-  redis:
+  redis1:
     image: redis:3.0.7-alpine
 
-  mosquitto:
+  mosquitto2:
     image: ansi/mosquitto
 
-  rabbitmq:
+  rabbitmq1:
     image: rabbitmq:3-alpine
