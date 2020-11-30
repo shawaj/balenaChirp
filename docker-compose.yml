@@ -7,7 +7,7 @@ services:
     ports:
       - "1700:1700/udp"
     volumes:
-      - ./:/chirpstack-gateway-bridge
+      - balena-data:/chirpstack-gateway-bridge
     links:
       - mosquitto
     environment:
@@ -72,7 +72,7 @@ services:
       dockerfile: Dockerfile-devel
     command: make serve
     volumes:
-      - ./:/chirpstack-network-server
+      - balena-data:/chirpstack-network-server
     links:
       - postgres1
       - redis1
@@ -106,3 +106,6 @@ services:
 
   rabbitmq1:
     image: rabbitmq:3-alpine
+
+volumes:
+    balena-data:
